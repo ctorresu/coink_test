@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for COINK</title>
+    <!--Background Style-->>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css" integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2" crossorigin="anonymous">
+    <!--Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <!--Background color-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center title mt-4">Por favor registre sus datos</h1>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <!--Forms-->
+                        <form action="/create_user" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Escribe tu nombre completo" class="form-control" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="email" placeholder="Escribe tu Email" class="form-control" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="city" placeholder="Escribe la ciudad en la que vives" class="form-control" autofocus>
+                            </div>                      
+                            <button type="submit" class="btn btn-primary btn-block margen-inferior">
+                                Enviar mis datos
+                            </button>
+                            <script>
+                                function revisar_informacion() {
+                                    fetch('/create_user', {
+                                        method: 'POST',
+                                        body: new FormData(document.querySelector('form')),})
+                                        .then(response => response.text())
+                                        .then(data => {alert(data);
+                                            window.location.href = '/';})
+                                    return false}
+                                        
+                            </script>        
+                        </form>
+                        <div>
+                            <button type="button" class="btn btn-primary btn-block margen-inferior" onclick="mostrardatabase()">
+                                Revisar datos
+                            </button>
+                        </div>
+                        <script>
+                            function ejecutarFuncionPython() {
+                                fetch('/show_database')
+                                    .then(response => response.text())
+                                    .then(data => alert(data));
+                            }
+                        </script>
+                        <script>
+                            function mostrardatabase(){
+                                window.location.href = '/Database';
+                            }
+                        </script>
+                    </div>
+                    
+                    <div class="card-body">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>
